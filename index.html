@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redd's Portfolio</title>
+    <style>
+        /* 1. 基础全局样式 */
+        body { 
+            margin: 0; 
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; 
+            background-color: #1a1a1a; /* 稍微调深一点，更有沉浸感 */
+            color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        /* 2. 导航栏 */
+        nav { 
+            padding: 30px 60px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: rgba(26, 26, 26, 0.95); /* 半透明背景 */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+        nav h1 { font-size: 1.1rem; font-weight: 700; margin: 0; letter-spacing: 2px; }
+        .nav-links a { margin-left: 30px; text-decoration: none; color: #888; font-size: 0.85rem; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
+
+        /* 3. 网格布局 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 60px; 
+            padding: 60px;
+        }
+
+        /* 4. 作品卡片逻辑 */
+        .project-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .image-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background-color: #333;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 5. 交互效果 */
+        .project-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .external-icon {
+            display: inline-block;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+            color: #666;
+        }
+
+        .project-card:hover .external-icon {
+            transform: translate(3px, -3px); /* 箭头向右上滑动 */
+            color: #fff;
+        }
+
+        /* 6. 信息展示区 */
+        .project-info { padding: 5px 0; }
+        .project-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .project-description {
+            font-size: 0.85rem;
+            color: #888;
+            /* 保持换行显示 */
+        }
+
+        /* 7. 联系方式板块 (Footer) */
+        .contact-section {
+            padding: 100px 60px 60px 60px;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+            background-color: #1a1a1a;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            /* 核心修改 1：确保 Footer 在超大屏幕下也和上方网格对齐，并水平居中 */
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .contact-title h3 {
+            font-size: 1.4rem;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .contact-title p { color: #555; font-size: 0.8rem; margin-top: 5px; }
+
+        .contact-details { 
+            display: flex; 
+            gap: 80px; 
+        }
+
+        .contact-item { 
+            display: flex; 
+            flex-direction: column; 
+            /* 核心修改 2：确保右侧的每一项内容（Label 和 Value）都向右对齐 */
+            align-items: flex-end; 
+            text-align: right;
+        }
+
+        .contact-item .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .contact-item .value {
+            font-size: 0.95rem;
+            color: #bbb;
+            font-family: 'Courier New', monospace;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .contact-item a.value:hover { color: #fff; }
+
+        .footer-bottom {
+            margin-top: 100px;
+            font-size: 0.6rem;
+            color: #444;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 768px) {
+            .portfolio-grid { padding: 30px 20px; gap: 40px; }
+            nav { padding: 20px; }
+            .contact-container { flex-direction: column; gap: 50px; }
+            .contact-details { 
+                flex-direction: column; 
+                gap: 30px; 
+                /* 手机端保持向左对齐，符合移动端阅读习惯 */
+                text-align: left;
+            }
+            .contact-item { align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>REDDZHOU PORTFOLIO</h1>
+    <div class="nav-links">
+        <a href="#">Works</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+</nav>
+
+<div class="portfolio-grid">
+    
+    <a href="https://pan.baidu.com/s/1n16rAMJDG69W8m_JUG-KyQ?pwd=j8qw" target="_blank" class="project-card">
+        <div class="image-container">
+            <img src="https://i.imgs.ovh/2026/03/16/OkJW1U.gif" alt="Master Thesis">
+        </div>
+        <div class="project-info">
+            <div class="project-tag">palimpsest / 2025</div>
+            <div class="project-title">
+                硕士毕设作品集 <span class="external-icon">↗</span>
+            </div>
+            <div class="project-description">
+                围绕计算生态和人工智能等方面对城市废弃建筑的更新再利用项目。<br>
+                点击跳转至百度网盘查看。
+            </div>
+        </div>
+    </a>
+
+    <a href="https://pan.baidu.com/s/1sbkbrMpTZ13aCs4CEn5emA?pwd=86dp" target="_blank" class="project-card">
+        <div class="image-container">
+            <img src="https://i.imgs.ovh/2026/03/17/Oq9d4e.gif" alt="Skill Course">
+        </div>
+        <div class="project-info">
+            <div class="project-tag">skill course portfolio / 2025</div>
+            <div class="project-title">
+                硕士软件作品集 <span class="external-icon">↗</span>
+            </div>
+            <div class="project-description">
+                通过使用Rhino、Grasshopper、ComfyUI、Houdini等软件进行生成模拟。<br>
+                点击跳转至百度网盘查看。
+            </div>
+        </div>
+    </a>
+
+    <a href="https://pan.baidu.com/s/1vB3thXjG93kI3qzPS_hcKg?pwd=t9b9" target="_blank" class="project-card">
+        <div class="image-container">
+            <img src="https://i.imgs.ovh/2026/03/17/OqDmwb.gif" alt="Undergraduate Portfolio">
+        </div>
+        <div class="project-info">
+            <div class="project-tag">Undergraduate portfolio / 2023</div>
+            <div class="project-title">
+                本科阶段作品集 <span class="external-icon">↗</span>
+            </div>
+            <div class="project-description">
+                作品集内包括街道，城市，建筑和室内等方向的项目集合。<br>
+                点击跳转至百度网盘查看。
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<footer class="contact-section">
+    <div class="contact-container">
+        <div class="contact-title">
+            <h3>Contact</h3>
+            <p>联系方式</p>
+        </div>
+
+        <div class="contact-details">
+            <div class="contact-item">
+                <span class="label">WeChat / 微信号</span>
+                <span class="value">Am_t_mboy</span>
+            </div>
+            <div class="contact-item">
+                <span class="label">Email / 邮箱</span>
+                <a href="mailto:am_t_mboy@163.com" class="value">am_t_mboy@163.com</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        &copy; 2026 REDD ZHOU. ALL RIGHTS RESERVED.
+    </div>
+</footer>
+
+</body>
+</html>
